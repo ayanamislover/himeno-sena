@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello from himenosena's lover</title>
+    <link rel="icon" type="png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="stylesheet" href="styles2.css">
+    <style>
+        .text-center {
+            text-align: center;
+        }
+
+        .small-font {
+            font-size: smaller;
+        }
+
+        .illustration-credit {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div class="scale-container" style="transform: scale(0.998532) translate(0.939794px, 0px);">
+    <div class="text-center">
+        <div class="small-font illustration-credit">
+            Hello from himenosena's lover<br><br><br><br>
+        </div>
+        <div class="scrolling-wrapper" id="autoScrollDiv">
+            <img src="pic0.jpg" alt="Image 1" class="">
+            <img src="pic1.jpg" alt="Image 2" class="">
+            <img src="pic2.jpg" alt="Image 3" class="">
+            <img src="pic3.jpg" alt="Image 4" class="">
+            <img src="pic4.jpg" alt="Image 5" class="">
+            <img src="pic5.jpg" alt="Image 6" class="">
+            <img src="pic6.jpg" alt="Image 7" class="">
+            <img src="pic7.jpg" alt="Image 8" class="">
+            <img src="pic8.jpg" alt="Image 9" class="">
+            <img src="pic9.jpg" alt="Image 10" class="">
+            <img src="pic10.jpg" alt="Image 11" class="">
+            <img src="pic11.jpg" alt="Image 12" class="">
+            <img src="pic12.jpg" alt="Image 13" class="">
+            <img src="pic13.jpg" alt="Image 14" class="">
+            <img src="pic14.jpg" alt="Image 15" class="">
+            <img src="pic0.jpg" alt="Image 1" class="">
+            <img src="pic1.jpg" alt="Image 2" class="">
+            <img src="pic2.jpg" alt="Image 3" class="">
+            <img src="pic3.jpg" alt="Image 4" class="">
+            <img src="pic4.jpg" alt="Image 5" class="">
+            <img src="pic5.jpg" alt="Image 6" class="">
+            <img src="pic6.jpg" alt="Image 7" class="">
+            <img src="pic7.jpg" alt="Image 8" class="">
+            <img src="pic8.jpg" alt="Image 9" class="">
+            <img src="pic9.jpg" alt="Image 10" class="">
+            <img src="pic10.jpg" alt="Image 11" class="">
+            <img src="pic11.jpg" alt="Image 12" class="">
+            <img src="pic12.jpg" alt="Image 13" class="">
+            <img src="pic13.jpg" alt="Image 14" class="">
+            <img src="pic14.jpg" alt="Image 15" class="">
+        </div>
+    </div>
+    <div class="text-center">
+        <div class="small-font illustration-credit1">
+            <br>Character Illustration by
+            <a href="https://ja.wikipedia.org/wiki/%E6%81%8B%C3%97%E3%82%B7%E3%83%B3%E3%82%A2%E3%82%A4%E5%BD%BC%E5%A5%B3"target="_blank">恋×シンアイ彼女</a>
+        </div>
+        <div class="small-font illustration-credit2">
+            星奏一定会奏回来的<br>
+        </div>
+    </div>
+
+    <script>
+
+
+        let resizeTimeout;
+
+        function debouncedResize() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(setScale, 200);
+        }
+
+        window.addEventListener('resize', debouncedResize);
+
+        function setScale() {
+            const container = document.querySelector('.scale-container');
+            const scaleX = window.innerWidth / container.scrollWidth;
+            const scaleY = window.innerHeight / container.scrollHeight;
+            const scale = Math.min(scaleX, scaleY);
+
+            // 计算偏移量以使内容居中
+            const offsetX = (window.innerWidth - container.scrollWidth * scale) / 2;
+            const offsetY = (window.innerHeight - container.scrollHeight * scale) / 2;
+
+            container.style.transform = `scale(${scale}) translate(${offsetX}px, ${offsetY}px)`;
+        }
+
+
+        window.addEventListener('resize', setScale);
+        window.addEventListener('load', setScale);
+
+        document.oncontextmenu = function () {
+            return false;
+        }
+
+        const div = document.getElementById('autoScrollDiv');
+        let leftPos = div.scrollLeft;
+        let isScrolling = true;
+
+        div.addEventListener('mouseover', function (e) {
+            const rect = e.target.getBoundingClientRect();
+            if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                isScrolling = false;  // 停止滚动
+            }
+        });
+
+        div.addEventListener('mouseout', function () {
+            isScrolling = true;  // 恢复滚动
+        });
+
+        const images = document.querySelectorAll('.scrolling-wrapper img');
+
+        images.forEach(image => {
+            image.addEventListener('mouseover', function () {
+                image.classList.add('enlarge');
+            });
+
+            image.addEventListener('mouseout', function () {
+                image.classList.remove('enlarge');
+            });
+        });
+
+
+
+        const n = 15;  // 图片数量
+        let totalWidthOfNImages = 5*n-4;  // 5*n涨图片
+        window.addEventListener('load', function () {
+            // 当页面加载时，计算前n张图片的宽度之和
+            const images = document.querySelectorAll('.scrolling-wrapper img');
+
+            for (let i = 0; i < n; i++) {
+                totalWidthOfNImages += images[i].offsetWidth + 10;
+            }
+
+            setScale();
+        });
+
+        function autoScroll() {
+            if (isScrolling) {
+                leftPos += 0.9;
+                div.scrollLeft = leftPos;
+
+                if (leftPos >= totalWidthOfNImages) {
+                    leftPos = 0;
+                    div.scrollLeft = leftPos;
+                }
+            }
+
+            requestAnimationFrame(autoScroll);
+        }
+
+        autoScroll();
+        window.onload = function() {
+            var bgm = document.getElementById('bgm');
+            bgm.volume = 0.3; // 设置音量为30%
+        }
+    </script>
+
+</div>
+</body>
+</html>
